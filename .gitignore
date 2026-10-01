@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+*.log
+.DS_Store
+tsconfig.tsbuildinfo
+**/__pycache__/
+*.py[cod]
+scripts/output.json
+scripts/parcels_to_insert.json
