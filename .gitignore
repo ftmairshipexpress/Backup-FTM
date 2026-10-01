@@ -10,3 +10,5 @@ tsconfig.tsbuildinfo
 *.py[cod]
 scripts/output.json
 scripts/parcels_to_insert.json
+.vercel
+.env*.local

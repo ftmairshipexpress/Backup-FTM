@@ -19,6 +19,7 @@
     "@react-three/fiber": "^8.17.10",
     "@supabase/supabase-js": "^2.49.1",
     "@types/google.maps": "^3.65.4",
+    "chart.js": "^4.5.1",
     "framer-motion": "^13.1.0",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.9.4",
