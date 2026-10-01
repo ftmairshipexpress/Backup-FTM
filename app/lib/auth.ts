@@ -125,10 +125,9 @@ function getSessionIssuerHost(accessToken: string) {
 }
 
 export async function signInWithPassword(email: string, password: string) {
-  const base = process.env.NEXT_PUBLIC_FTM_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
   let response: Response;
   try {
-    response = await fetch(`${base}/api/auth/login`, {
+    response = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -136,7 +135,7 @@ export async function signInWithPassword(email: string, password: string) {
   } catch {
     return {
       user: null,
-      error: new Error(`Unable to connect to the FTM backend at ${base}. Start the backend server and try again.`),
+      error: new Error("Unable to connect to the FTM backend. Please try again."),
     };
   }
   const body = await response.json().catch(() => ({}));
