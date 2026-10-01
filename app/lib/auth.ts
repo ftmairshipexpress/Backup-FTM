@@ -1,5 +1,6 @@
 import type { User } from "@supabase/supabase-js";
 import { supabase, supabaseUrl } from "./supabaseClient";
+import { getFtmApiUrl } from "./apiBase";
 import { getDashboardRouteForRole, normalizeRole, type AppRole } from "./roleAccess";
 
 export type AuthUser = {
@@ -228,8 +229,7 @@ export async function requestEmailMfaCode(email: string) {
   const trimmedEmail = String(email ?? "").trim();
   if (!trimmedEmail) throw new Error("Email address is required.");
 
-  const base = process.env.NEXT_PUBLIC_FTM_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
-  const response = await fetch(`${base}/api/auth/request-otp`, {
+  const response = await fetch(getFtmApiUrl("/api/auth/request-otp"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: trimmedEmail }),
@@ -276,8 +276,7 @@ export async function verifyEmailMfaCode(email: string, code: string) {
     throw new Error("Enter the 6-digit code from your email.");
   }
 
-  const base = process.env.NEXT_PUBLIC_FTM_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
-  const response = await fetch(`${base}/api/auth/verify-otp`, {
+  const response = await fetch(getFtmApiUrl("/api/auth/verify-otp"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: trimmedEmail, code: normalizedCode }),

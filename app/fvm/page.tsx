@@ -7,6 +7,7 @@ import { SkeletonBlock } from "../components/PageSkeleton";
 
 import { useEffect, useMemo, useState } from "react";
 import { createVehicle, createVehicleDocument, getCouriers, getDashboardSnapshot, getNextVehicleId, getVehicles, uploadVehicleDocument } from "../lib/api";
+import { getFtmApiUrl } from "../lib/apiBase";
 import { getCurrentRole, hasAppPermission } from "../lib/roleAccess";
 import {
   ResponsiveContainer,
@@ -275,8 +276,7 @@ export default function FvmOverviewPage() {
     setPlateStatus("checking");
     const timer = window.setTimeout(async () => {
       try {
-        const apiBase = process.env.NEXT_PUBLIC_FTM_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8001";
-        const result = await fetch(`${apiBase}/api/vehicles?plate_number=${encodeURIComponent(plate)}`);
+        const result = await fetch(getFtmApiUrl(`/api/vehicles?plate_number=${encodeURIComponent(plate)}`));
         const rows = result.ok ? await result.json() : [];
         setPlateStatus(Array.isArray(rows) && rows.some((item: any) => normalizePlate(item.plate_number || item.plate) === plate) ? "duplicate" : "available");
       } catch {
